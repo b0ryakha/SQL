@@ -53,3 +53,15 @@ insert into person_order values (15,1, 7, '2022-09-08');
 ![результат2](/3/3.png)
 ![результат2](/3/4.png)
 ![результат2](/3/5.png)
+
+## 2)
+```sql
+SELECT ("name", "age", "address") FROM "person" WHERE "address" = 'Moscow'
+```
+![результат1](/3/6.png)
+
+## 3)
+```sql
+SELECT ("name", "age", "address") FROM "person" WHERE "gender" = 'female' and "address" = 'Moscow' ORDER BY "name"
+```
+![результат1](/3/7.png)
