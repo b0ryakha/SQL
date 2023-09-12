@@ -65,3 +65,11 @@ SELECT ("name", "age", "address") FROM "person" WHERE "address" = 'Moscow'
 SELECT ("name", "age", "address") FROM "person" WHERE "gender" = 'female' and "address" = 'Moscow' ORDER BY "name"
 ```
 ![результат1](/3/7.png)
+
+## 4)
+```sql
+SELECT ("name", "rating") FROM "pizzeria" WHERE "rating" >= 3.5 AND "rating" <= 5 ORDER BY "rating"
+```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/fbea0d30-d201-4aba-81f5-a9961b21b367)
+
+
