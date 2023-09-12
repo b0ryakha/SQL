@@ -50,7 +50,7 @@ insert into person_order values (15,1, 7, '2022-09-08');
 ```
 ![результат1](/3/1.png)
 ![результат2](/3/2.png)
-![результат2](/3/3.png)
+![image](https://github.com/b0ryakha/SQL/assets/47691726/4e069555-c10b-4fc0-b2f3-0ea1ae2a58fc)
 ![результат2](/3/4.png)
 ![результат2](/3/5.png)
 
@@ -69,7 +69,26 @@ SELECT ("name", "age", "address") FROM "person" WHERE "gender" = 'female' and "a
 ## 4)
 ```sql
 SELECT ("name", "rating") FROM "pizzeria" WHERE "rating" >= 3.5 AND "rating" <= 5 ORDER BY "rating"
+SELECT ("name", "rating") FROM "pizzeria" WHERE "rating" BETWEEN 3.5 AND 5
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/fbea0d30-d201-4aba-81f5-a9961b21b367)
 
+## 5)
+```sql
+SELECT "id" FROM "person_visits" WHERE "visit_date" BETWEEN '2022-01-01' and '2022-01-06' OR "pizzeria_id" = 2 ORDER BY "id"
+```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/d9031e6f-06ad-4fcf-b75d-bdda4fb03ac4)
+
+## 6)
+```sql
+SELECT "name" FROM "person" WHERE (SELECT "id" FROM "person_order" WHERE "menu_id" = 3) = "id"
+```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/0fe08257-17cf-473c-ac0a-fc3a1899a75f)
+
+
+## 7)
+```sql
+SELECT EXISTS (SELECT "id" FROM "person" WHERE "name" = 'Kate')
+```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/f9c432f5-9ddf-4738-88bf-d5d784ccc21f)
 
