@@ -24,5 +24,10 @@ ORDER BY "order_date" DESC
 
 ## 4)
 ```sql
-
+SELECT ABS(
+	(SELECT COUNT("person_id") FROM "person_order" WHERE "order_date" = '2022-01-07')
+	-
+	(SELECT COUNT("person_id") FROM "person_visits" WHERE "visit_date" = '2022-01-07')
+)
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/678b32dc-af4e-4855-ac0f-534224f765bc)
