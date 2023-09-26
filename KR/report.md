@@ -47,9 +47,9 @@ SELECT AVG(age) FROM students;
 ### 8)
 ```sql
 SELECT firstname, lastname FROM students
-WHERE studentid IN (SELECT studentid FROM studentcourses WHERE courseid < 1 OR courseid > (SELECT COUNT(courses.courseid) FROM courses));
+WHERE NOT (studentid IN (SELECT studentid FROM studentcourses))
 ```
-![image](https://github.com/b0ryakha/SQL/assets/47691726/4528721c-9012-4650-aced-cc7c71cf6891)
+![image](https://github.com/b0ryakha/SQL/assets/47691726/f9dff843-d1aa-437a-848b-d2e845c6fadc)
 
 ### 9)
 ```sql
@@ -82,6 +82,8 @@ HAVING COUNT(studentcourses.studentid) >= 2
 
 ### 2)
 ```sql
+DROP TABLE IF EXISTS limit_courses;
+
 SELECT courses.courseid, COUNT(studentcourses.studentid) INTO limit_courses FROM courses
 JOIN studentcourses ON studentcourses.courseid = courses.courseid GROUP BY courses.courseid
 HAVING COUNT(studentcourses.studentid) = 1;
@@ -93,8 +95,10 @@ WHERE studentid IN (SELECT studentcourses.studentid FROM studentcourses WHERE st
 
 ### 3)
 ```sql
-
+SELECT firstname, lastname FROM students
+WHERE (SELECT COUNT(studentid) FROM studentcourses) = (SELECT COUNT(courseid) FROM courses)
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/70f0a6df-a18d-45b4-8adb-ab6a6cd52790)
 
 ### 4)
 ```sql
@@ -102,12 +106,14 @@ SELECT firstname, lastname FROM students
 WHERE
 	NOT (studentid IN (SELECT studentid FROM studentcourses WHERE courseid = (SELECT courseid FROM courses WHERE coursename = 'Информатика')))
 AND
-	studentid IN (SELECT studentid FROM studentcourses WHERE courseid > 0 AND courseid < (SELECT COUNT(courses.courseid) FROM courses))
+	studentid IN (SELECT studentid FROM studentcourses)
 ```
-![image](https://github.com/b0ryakha/SQL/assets/47691726/2da48f70-b643-45ab-8742-f2ae7b18aca8)
+![image](https://github.com/b0ryakha/SQL/assets/47691726/1d0f93ef-e136-4422-8225-9853026b07fd)
 
 ### 5)
 ```sql
+DROP TABLE IF EXISTS tmp_table;
+
 SELECT courses.coursename, COUNT(studentcourses.studentid) INTO tmp_table FROM courses
 JOIN studentcourses ON studentcourses.courseid = courses.courseid GROUP BY courses.courseid
 HAVING COUNT(studentcourses.studentid) = 0;
@@ -123,8 +129,14 @@ SELECT coursename FROM tmp_table;
 
 ### 7)
 ```sql
-
+SELECT firstname, lastname FROM students
+WHERE
+	studentid IN (SELECT studentid FROM studentcourses WHERE courseid IN (SELECT courseid FROM courses
+		WHERE courseid IN (SELECT courseid FROM studentcourses WHERE studentid = (SELECT studentid FROM students WHERE firstname = 'Иван'))))
+AND
+	NOT (firstname = 'Иван')
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/b0e0906c-94eb-4b67-bad4-6ca2284aebe6)
 
 ### 8)
 ```sql
@@ -137,10 +149,17 @@ SELECT AVG(age) FROM biology_course;
 
 ### 9)
 ```sql
-
+SELECT firstname, lastname FROM students
+WHERE
+	NOT (studentid IN (SELECT studentid FROM studentcourses))
+AND
+	age > 18
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/b1114cfd-98b9-426b-b90a-577c4fd05a46)
 
 ### 10)
 ```sql
-
+SELECT firstname, lastname FROM students
+WHERE (SELECT COUNT(studentid) FROM studentcourses) >= 2
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/5659eb79-c15a-4203-b4fb-b251d4260676)
