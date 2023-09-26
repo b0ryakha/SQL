@@ -124,8 +124,13 @@ SELECT coursename FROM tmp_table;
 
 ### 6)
 ```sql
+DROP TABLE IF EXISTS max_age;
+SELECT MAX(age) INTO max_age FROM students;
 
+SELECT firstname, lastname FROM students
+WHERE age = (SELECT * FROM max_age);
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/106c08e4-2de4-4acd-8f99-ae3448e2a0cb)
 
 ### 7)
 ```sql
