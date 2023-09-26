@@ -131,8 +131,8 @@ SELECT coursename FROM tmp_table;
 ```sql
 SELECT firstname, lastname FROM students
 WHERE
-	studentid IN (SELECT studentid FROM studentcourses WHERE courseid IN (SELECT courseid FROM courses
-		WHERE courseid IN (SELECT courseid FROM studentcourses WHERE studentid = (SELECT studentid FROM students WHERE firstname = 'Иван'))))
+	studentid IN (SELECT studentid FROM studentcourses WHERE courseid IN
+		(SELECT courseid FROM courses WHERE courseid IN (SELECT courseid FROM studentcourses WHERE studentid = (SELECT studentid FROM students WHERE firstname = 'Иван'))))
 AND
 	NOT (firstname = 'Иван')
 ```
