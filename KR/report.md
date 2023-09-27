@@ -47,7 +47,7 @@ SELECT AVG(age) FROM students;
 ### 8)
 ```sql
 SELECT firstname, lastname FROM students
-WHERE NOT (studentid IN (SELECT studentid FROM studentcourses))
+WHERE studentid NOT IN (SELECT studentid FROM studentcourses)
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/f9dff843-d1aa-437a-848b-d2e845c6fadc)
 
@@ -82,14 +82,14 @@ HAVING COUNT(studentcourses.studentid) >= 2
 
 ### 2)
 ```sql
-DROP TABLE IF EXISTS limit_courses;
-
 SELECT courses.courseid, COUNT(studentcourses.studentid) INTO limit_courses FROM courses
 JOIN studentcourses ON studentcourses.courseid = courses.courseid GROUP BY courses.courseid
 HAVING COUNT(studentcourses.studentid) = 1;
 
 SELECT firstname, lastname FROM students
 WHERE studentid IN (SELECT studentcourses.studentid FROM studentcourses WHERE studentcourses.courseid IN (SELECT limit_courses.courseid FROM limit_courses));
+
+DROP TABLE limit_courses;
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/a2cfbe75-6872-4e0d-952f-3d721a17cc78)
 
@@ -104,7 +104,7 @@ WHERE (SELECT COUNT(studentid) FROM studentcourses) = (SELECT COUNT(courseid) FR
 ```sql
 SELECT firstname, lastname FROM students
 WHERE
-	NOT (studentid IN (SELECT studentid FROM studentcourses WHERE courseid = (SELECT courseid FROM courses WHERE coursename = 'Информатика')))
+	studentid NOT IN (SELECT studentid FROM studentcourses WHERE courseid = (SELECT courseid FROM courses WHERE coursename = 'Информатика'))
 AND
 	studentid IN (SELECT studentid FROM studentcourses)
 ```
@@ -112,23 +112,19 @@ AND
 
 ### 5)
 ```sql
-DROP TABLE IF EXISTS tmp_table;
-
 SELECT courses.coursename, COUNT(studentcourses.studentid) INTO tmp_table FROM courses
 JOIN studentcourses ON studentcourses.courseid = courses.courseid GROUP BY courses.courseid
 HAVING COUNT(studentcourses.studentid) = 0;
 
 SELECT coursename FROM tmp_table;
+DROP TABLE tmp_table;
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/379670a3-502a-4366-a0d6-81371183b915)
 
 ### 6)
 ```sql
-DROP TABLE IF EXISTS max_age;
-SELECT MAX(age) INTO max_age FROM students;
-
 SELECT firstname, lastname FROM students
-WHERE age = (SELECT * FROM max_age);
+WHERE age = (SELECT MAX(age) FROM students);
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/106c08e4-2de4-4acd-8f99-ae3448e2a0cb)
 
@@ -156,7 +152,7 @@ SELECT AVG(age) FROM biology_course;
 ```sql
 SELECT firstname, lastname FROM students
 WHERE
-	NOT (studentid IN (SELECT studentid FROM studentcourses))
+	studentid NOT IN (SELECT studentid FROM studentcourses)
 AND
 	age > 18
 ```
