@@ -75,7 +75,7 @@ WHERE age <= 22 AND studentid IN (SELECT studentid FROM studentcourses WHERE cou
 ### 1)
 ```sql
 SELECT courses.coursename, COUNT(studentcourses.studentid) FROM courses
-JOIN studentcourses ON studentcourses.courseid = courses.courseid GROUP BY courses.courseid
+JOIN studentcourses ON studentcourses.courseid = courses.courseid GROUP BY courses.coursename
 HAVING COUNT(studentcourses.studentid) >= 2
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/af33d268-4ecc-4854-9b17-e5ae454c3f30)
