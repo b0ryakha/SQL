@@ -112,14 +112,11 @@ AND
 
 ### 5)
 ```sql
-SELECT courses.coursename, COUNT(studentcourses.studentid) INTO tmp_table FROM courses
-JOIN studentcourses ON studentcourses.courseid = courses.courseid GROUP BY courses.courseid
-HAVING COUNT(studentcourses.studentid) = 0;
-
-SELECT coursename FROM tmp_table;
-DROP TABLE tmp_table;
+SELECT courses.coursename FROM courses
+LEFT JOIN studentcourses ON courses.courseid = studentcourses.courseid
+WHERE studentcourses.courseid IS NULL;
 ```
-![image](https://github.com/b0ryakha/SQL/assets/47691726/379670a3-502a-4366-a0d6-81371183b915)
+![image](https://github.com/b0ryakha/SQL/assets/47691726/13444d77-1a52-46cf-8aaf-5b570b0bf167)
 
 ### 6)
 ```sql
