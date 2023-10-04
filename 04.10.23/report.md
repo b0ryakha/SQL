@@ -45,5 +45,29 @@ ORDER BY pizzeria.name;
 
 ## Exercise 04
 ```sql
+WITH men_orders AS (
+	SELECT pizzeria.name FROM pizzeria
+	JOIN menu ON pizzeria.id = pizzeria_id
+	JOIN person_order ON menu.id = menu_id
+	JOIN person ON person.id = person_id
+	WHERE gender = 'male'
+),
+women_orders AS (
+	SELECT pizzeria.name FROM pizzeria
+	JOIN menu ON pizzeria.id = pizzeria_id
+	JOIN person_order ON menu.id = menu_id
+	JOIN person ON person.id = person_id
+	WHERE gender = 'female'
+)
+
+(SELECT * FROM women_orders EXCEPT SELECT * FROM men_orders)
+UNION
+(SELECT * FROM men_orders EXCEPT SELECT * FROM women_orders)
+ORDER BY "name";
+```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/3bad6033-46fe-4e3e-8fae-a2e20bf75997)
+
+## Exercise 05
+```sql
 
 ```
