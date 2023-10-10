@@ -1,14 +1,14 @@
 ## Exercise 00
 ```sql
-DROP VIEW IF EXISTS males, females;
+DROP VIEW IF EXISTS v_males, v_females;
 
-CREATE VIEW males AS
+CREATE VIEW v_males AS
 	SELECT * FROM person WHERE gender = 'male';
 	
-CREATE VIEW females AS
+CREATE VIEW v_females AS
 	SELECT * FROM person WHERE gender = 'female';
 	
-SELECT * FROM males, females;
+SELECT * FROM v_males, v_females;
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/b6ca6df6-c9df-4e8f-b405-6d7582e39c4f)
 
@@ -56,6 +56,15 @@ LEFT JOIN person_visits ON generated_date = visit_date
 WHERE visit_date IS NULL;
 ```
 ![image](https://github.com/b0ryakha/SQL/assets/47691726/dfdc07db-8d52-466f-b13b-4eb595fb0ba0)
+
+## Exercise BONUS LEVEL
+```sql
+SELECT p1.name, p2.name, p1.address FROM person p1
+JOIN persons2 p2 ON p1.address = p2.address
+WHERE p1.id < p2.id;
+```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/11ef939f-be27-473c-9712-44ba2e5d057d)
+
 
 ## Exercise 04
 ```sql
