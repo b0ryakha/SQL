@@ -46,23 +46,22 @@ WHERE p.price > 1000 AND p.category != 'Electronics';
 ```sql
 DROP VIEW IF EXISTS v_customers_avg_price;
 CREATE VIEW v_customers_avg_price AS (
-	WITH tmp_shit AS (
-		SELECT p.product_id, AVG(p.price) AS "avg_price" FROM products p
-		GROUP BY p.product_id, p.price
+	WITH customer_avg_price AS (
+		SELECT o.customer_id, (SUM(p.price) / o.quantity) AS "avg_price" FROM orders o
+		JOIN products p ON p.product_id = o.product_id
+		GROUP BY o.customer_id, o.quantity
 	),
 	global_avg_price AS (
 		SELECT AVG(p.price) FROM products p
 	)
 	
-	SELECT c.first_name, c.last_name, c.email, t.avg_price, ABS(SUM(t.avg_price - (SELECT * FROM global_avg_price))) AS "deviation" FROM customers c
-	JOIN orders o ON o.customer_id = c.customer_id
-	JOIN tmp_shit t ON t.product_id = o.product_id
-	GROUP BY c.first_name, c.last_name, c.email, t.avg_price
+	SELECT c.first_name, c.last_name, c.email, cap.avg_price, (cap.avg_price - (SELECT * FROM global_avg_price)) AS "deviation" FROM customers c
+	JOIN customer_avg_price cap ON cap.customer_id = c.customer_id
+	GROUP BY c.first_name, c.last_name, c.email, cap.avg_price
 );
 
 SELECT * FROM v_customers_avg_price;
 ```
-![image](https://github.com/b0ryakha/SQL/assets/47691726/951fe9bb-8414-4928-ad9e-b6b45ed50d0f)
 
 ## 6)
 ```sql
