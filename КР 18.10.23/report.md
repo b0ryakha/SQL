@@ -35,12 +35,28 @@ WHERE t.price_sum > (SELECT * FROM global_avg_price);
 
 ## 4)
 ```sql
-
+SELECT c.first_name, c.last_name, c.email FROM customers c
+JOIN orders o ON o.customer_id = c.customer_id
+JOIN products p ON p.product_id = o.product_id
+WHERE p.price > 1000 AND p.category != 'Electronics';
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/22761f1c-9a3f-49cf-8c1b-2e680a12ebc8)
 
 ## 5)
 ```sql
+DROP VIEW IF EXISTS v_customers_avg_price;
+CREATE VIEW v_customers_avg_price AS (
+	WITH global_avg_price AS (
+		SELECT AVG(p.price) FROM products p
+	)
+	
+	SELECT c.first_name, c.last_name, c.email, AVG(p.price) AS "avg_price", SUM() AS "" FROM customers c
+	JOIN orders o ON o.customer_id = c.customer_id
+	JOIN products p ON p.product_id = o.product_id
+	GROUP BY c.first_name, c.last_name, c.email, p.price
+);
 
+SELECT * FROM v_customers_avg_price;
 ```
 
 ## 6)
