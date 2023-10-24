@@ -52,13 +52,21 @@ ORDER BY p.name
 
 ## Exercise 06
 ```sql
-SELECT p.name, COUNT(po.id) AS "count_of_orders", ROUND(AVG(m.price), 2) AS "average_price", MAX(m.price) AS "max_price", MIN(m.price) AS "min_price" FROM pizzeria p
+WITH tmp_shit AS (
+	SELECT p.name, COUNT(po.id) AS "count_of_orders" FROM pizzeria p
+	JOIN menu ON menu.pizzeria_id = p.id
+	JOIN person_order po ON po.menu_id = menu.id
+	GROUP BY 1
+	ORDER BY count_of_orders DESC
+)
+
+SELECT p.name, t.count_of_orders, ROUND(AVG(m.price), 2) AS "average_price", MAX(m.price) AS "max_price", MIN(m.price) AS "min_price" FROM pizzeria p
 JOIN menu m ON m.pizzeria_id = p.id
-JOIN person_order po ON po.menu_id = m.id
-GROUP BY p.name, m.price, m.pizza_name
-ORDER BY m.pizza_name
+JOIN tmp_shit t ON t.name = p.name
+GROUP BY p.name, t.count_of_orders
+ORDER BY p.name
 ```
-![image](https://github.com/b0ryakha/SQL/assets/47691726/3f22d412-67d9-41a4-9c2c-daa90cf3c760)
+![image](https://github.com/b0ryakha/SQL/assets/47691726/1c4ab9e7-b254-437a-903a-a054a1918e8f)
 
 ## Exercise 07
 ```sql
