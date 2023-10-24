@@ -109,8 +109,11 @@ WHERE o.order_date BETWEEN '2023-08-24' AND '2023-10-24'
 
 ## 8)
 ```sql
-
+UPDATE products
+SET price = price - ((price * 10) / 100)
+WHERE category = 'Clothing'
 ```
+![image](https://github.com/b0ryakha/SQL/assets/47691726/ddda76e5-989d-4efe-be30-5d0dc4dfd930)
 
 ## 9)
 ```sql
