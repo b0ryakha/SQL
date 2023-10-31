@@ -44,7 +44,8 @@ CREATE TABLE role (
 CREATE TABLE purposes (
 	id bigint PRIMARY KEY,
 	title varchar NOT NULL,
-	description varchar
+	description varchar,
+	is_completed boolean
 );
 ```
 
