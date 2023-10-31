@@ -4,7 +4,7 @@
 ---
 
 ## Схема баз данных
-![image](https://github.com/b0ryakha/SQL/assets/47691726/cde1c5e8-2bc6-4d50-84df-d3895c983f13)
+
 
 ## Базы данных
 ### Продукт
@@ -13,7 +13,9 @@
 CREATE TABLE product (
 	id bigint PRIMARY KEY,
 	title varchar,
-	energy_value integer
+	protein integer,
+	carbohydrate integer,
+	fats integer
 );
 ```
 
