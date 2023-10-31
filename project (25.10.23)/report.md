@@ -4,7 +4,7 @@
 ---
 
 ## Схема баз данных
-
+![image](https://github.com/b0ryakha/SQL/assets/47691726/52154a3c-06b7-4ab5-9b42-2d341503fe8d)
 
 ## Базы данных
 ### Продукт
@@ -67,6 +67,22 @@ CREATE TABLE person (
 	CONSTRAINT fk_role_role_id FOREIGN KEY (role_id) REFERENCES role(id),
 	CONSTRAINT fk_diet_diet_id FOREIGN KEY (diet_id) REFERENCES diet(id),
 	CONSTRAINT fk_purposes_purposes_id FOREIGN KEY (purposes_id) REFERENCES purposes(id)
+);
+
+CREATE TABLE diet_person (
+	diet_id bigint NOT NULL,
+	person_id bigint NOT NULL,
+
+	CONSTRAINT fk_diet_diet_id FOREIGN KEY (diet_id) REFERENCES diet(id),
+	CONSTRAINT fk_person_person_id FOREIGN KEY (person_id) REFERENCES person(id)
+);
+
+CREATE TABLE purposes_person (
+	purposes_id bigint NOT NULL,
+	person_id bigint NOT NULL,
+
+	CONSTRAINT fk_purposes_purposes_id FOREIGN KEY (purposes_id) REFERENCES purposes(id),
+	CONSTRAINT fk_person_person_id FOREIGN KEY (person_id) REFERENCES person(id)
 );
 ```
 
