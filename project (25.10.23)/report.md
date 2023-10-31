@@ -57,13 +57,13 @@ CREATE TABLE person (
 	name varchar NOT NULL,
 	age integer NOT NULL,
 	gender varchar DEFAULT 'female' CHECK(gender IN ('female', 'male')),
-    phone varchar,
-    role_id integer DEFAULT 1 NOT NULL,
-    diet_id integer,
+	phone varchar,
+	role_id integer DEFAULT 1 NOT NULL,
+	diet_id integer,
 	purposes_id bigint,
 
 	CONSTRAINT fk_role_role_id FOREIGN KEY (role_id) REFERENCES role(id),
-    CONSTRAINT fk_diet_diet_id FOREIGN KEY (diet_id) REFERENCES diet(id),
+	CONSTRAINT fk_diet_diet_id FOREIGN KEY (diet_id) REFERENCES diet(id),
 	CONSTRAINT fk_purposes_purposes_id FOREIGN KEY (purposes_id) REFERENCES purposes(id)
 );
 ```
