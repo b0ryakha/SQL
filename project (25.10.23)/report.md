@@ -4,7 +4,7 @@
 ---
 
 ## Схема баз данных
-
+![image](https://github.com/b0ryakha/SQL/assets/47691726/cde1c5e8-2bc6-4d50-84df-d3895c983f13)
 
 ## Базы данных
 ### Продукт
@@ -78,5 +78,18 @@ CREATE TABLE _group (
 	
 	CONSTRAINT fk_person_coach_id FOREIGN KEY (coach_id) REFERENCES person(id),
 	CONSTRAINT fk_person_client_id FOREIGN KEY (client_id) REFERENCES person(id)
+);
+```
+
+### Результат
+#### Создание
+```sql
+CREATE TABLE result (
+	id bigint PRIMARY KEY,
+	person_id bigint NOT NULL,
+	completion_date date NOT NULL,
+	estimation integer NOT NULL CHECK(estimation >= 0 AND estimation <= 10),
+	
+	CONSTRAINT fk_person_person_id FOREIGN KEY (person_id) REFERENCES person(id)
 );
 ```
