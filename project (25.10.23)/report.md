@@ -18,6 +18,10 @@ CREATE TABLE product (
 	fats integer
 );
 ```
+#### Заполнение
+```sql
+
+```
 
 ### Рацион
 #### Создание
@@ -30,6 +34,10 @@ CREATE TABLE diet (
 	CONSTRAINT fk_product_product_id FOREIGN KEY (product_id) REFERENCES product(id)
 );
 ```
+#### Заполнение
+```sql
+
+```
 
 ### Роль
 #### Создание
@@ -38,6 +46,10 @@ CREATE TABLE role (
 	id integer PRIMARY KEY,
 	title varchar DEFAULT 'client' CHECK(title IN ('coach', 'client'))
 );
+```
+#### Заполнение
+```sql
+
 ```
 
 ### Цель
@@ -49,6 +61,10 @@ CREATE TABLE purposes (
 	description varchar,
 	is_completed boolean
 );
+```
+#### Заполнение
+```sql
+
 ```
 
 ### Пользователь
@@ -85,6 +101,10 @@ CREATE TABLE purposes_person (
 	CONSTRAINT fk_person_person_id FOREIGN KEY (person_id) REFERENCES person(id)
 );
 ```
+#### Заполнение
+```sql
+
+```
 
 ### Группа
 #### Создание
@@ -99,6 +119,10 @@ CREATE TABLE _group (
 	CONSTRAINT fk_person_client_id FOREIGN KEY (client_id) REFERENCES person(id)
 );
 ```
+#### Заполнение
+```sql
+
+```
 
 ### Результат
 #### Создание
@@ -111,4 +135,8 @@ CREATE TABLE result (
 	
 	CONSTRAINT fk_person_person_id FOREIGN KEY (person_id) REFERENCES person(id)
 );
+```
+#### Заполнение
+```sql
+
 ```
