@@ -45,6 +45,15 @@ INSERT INTO diet VALUES (1, 1, '2023-12-14');
 INSERT INTO diet VALUES (2, 2, '2023-01-28');
 INSERT INTO diet VALUES (3, 2, '2022-05-28');
 ```
+#### View
+```sql
+DROP VIEW IF EXISTS v_diet_product;
+CREATE VIEW v_diet_product AS (
+	SELECT d.id AS "diet id", p.title
+	FROM diet d
+	JOIN product p ON d.product_id = p.id
+);
+```
 
 ### Роль
 #### Создание
@@ -111,6 +120,21 @@ CREATE TABLE purposes_person (
 	CONSTRAINT fk_person_person_id FOREIGN KEY (person_id) REFERENCES person(id)
 );
 ```
+#### Views
+```sql
+DROP VIEW IF EXISTS v_person_role;
+CREATE VIEW v_person_role AS (
+	SELECT r.title FROM "role" r
+	JOIN person p ON p.role_id = r.id
+);
+
+DROP VIEW IF EXISTS v_person_result;
+CREATE VIEW v_person_result AS (
+	SELECT p.name, r.estimation FROM "person" p
+	JOIN result r ON p.id = r.person_id
+);
+```
+
 #### Заполнение
 ```sql
 INSERT INTO person VALUES (1, 'Anna', 16, 'female', '89423386477', 2, 1, 1);
