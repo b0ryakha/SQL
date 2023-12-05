@@ -241,3 +241,16 @@ INSERT INTO result VALUES (4, 6, '2022-03-25', 5);
 INSERT INTO result VALUES (5, 7, '2022-05-25', 7);
 INSERT INTO result VALUES (6, 8, '2022-11-25', 6);
 ```
+
+CREATE OR REPLACE FUNCTION fnc_count_couch() RETURNS TRIGGER AS $trg_person_couch_insert$
+BEGIN
+RETURN query(
+	SELECT COUNT(*) FROM person p
+	JOIN role r On r.id = p.role_id
+	WHERE r.title = 'couch'
+);
+END;
+$trg_person_couch_insert$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER trg_person_couch_insert AFTER INSERT ON person
+for each row execute function fnc_count_couch();
