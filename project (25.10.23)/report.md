@@ -242,15 +242,30 @@ INSERT INTO result VALUES (5, 7, '2022-05-25', 7);
 INSERT INTO result VALUES (6, 8, '2022-11-25', 6);
 ```
 
-CREATE OR REPLACE FUNCTION fnc_count_couch() RETURNS TRIGGER AS $trg_person_couch_insert$
+#### Триггеры
+```sql
+CREATE OR REPLACE FUNCTION fnc_after_new_couch_inserts() RETURNS trigger AS $trg_after_new_couch_insert$
 BEGIN
-RETURN query(
-	SELECT COUNT(*) FROM person p
-	JOIN role r On r.id = p.role_id
-	WHERE r.title = 'couch'
-);
+INSERT INTO couchs(person_id)
+SELECT NEW.id;
+WHERE NEW.role_id = 'couch'
+RETURN NULL;
 END;
-$trg_person_couch_insert$ LANGUAGE plpgsql;
+$trg_after_new_couch_insert$ LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE TRIGGER trg_person_couch_insert AFTER INSERT ON person
-for each row execute function fnc_count_couch();
+CREATE TRIGGER trg_after_new_couch_insert AFTER INSERT ON person
+	FOR EACH ROW EXECUTE FUNCTION fnc_after_new_couch_inserts();
+```
+```sql
+CREATE OR REPLACE FUNCTION fnc_after_insert_in_highest_grade() RETURNS TRIGGER AS $trg_after_insert_in_highest_grade$
+BEGIN
+UPDATE result r
+JOIN person p ON p.id = r.person_id
+WHERE r.estimation = 10;
+RETURN NULL;
+END;
+$trg_after_insert_in_highest_grade$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER trg_after_highest_grade_insert AFTER INSERT ON highest_grade
+	FOR EACH ROW EXECUTE FUNCTION fnc_after_insert_in_highest_grade_inserts()
+```
